@@ -1,0 +1,68 @@
+{
+    "domain": {
+        "indices": [
+            {
+                "properties": [
+                    { "hash": "asc" }
+                ],
+                "unique": true
+            }
+        ],
+        "properties": {
+            "hash": {
+                "type": "string"
+            },
+            "label": {
+                "type": "string",
+                "pattern": "TODO: add a proper regexp according to RFC"
+            },
+            "normalzedLabel": {
+                "type": "string"
+            },
+            "parentDomainHash": {
+                "type": "string"
+            },
+            "preorderSalt": {
+                "type": "string"
+            },
+            "records": {
+                "type": "object",
+                "properties": {
+                    "dashIdentity": {
+                        "type": "string"
+                    }
+                },
+                "minProperties": 1,
+                "additionalProperties": false
+            }
+       },
+       "required": [
+           "hash",
+           "label",
+           "normalizedLabel",
+           "parentDomainHash",
+           "preorderSalt",
+           "records"
+        ],
+        "additionalProperties": false
+    },
+    "preorder": {
+        "indices": [
+            {
+                "properties": [
+                    { "saltedDomainHash": "asc" }
+                ],
+                "unique": true
+            }
+        ],
+        "properties": {
+           "saltedDomainHash": {
+                "type": "string"
+           }
+        },
+        "required": [
+            "saltedDomainHash"
+        ],
+        "additionalProperties": false
+    }
+}

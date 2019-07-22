@@ -1,0 +1,25 @@
+{
+  "name": "dpns-contract",
+  "version": "0.0.1",
+  "description": "A contract and helper scripts for DPNS DApp",
+  "scripts": {
+    "register": "node scripts/register",
+    "fetch": "node scripts/fetch",
+    "test": "mocha 'test/**/*.spec.js'"
+  },
+  "authors": [
+    "Djavid Gabibiyan"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.0"
+  },
+  "dependencies": {
+    "@dashevo/dapi-client": "^0.6.5",
+    "@dashevo/dpp": "^0.7.2"
+  }
+}
