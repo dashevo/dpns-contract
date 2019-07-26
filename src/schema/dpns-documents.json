@@ -3,6 +3,7 @@
         "indices": [
             {
                 "properties": [
+                    { "$userId": "asc" },
                     { "hash": "asc" }
                 ],
                 "unique": true
@@ -50,6 +51,7 @@
         "indices": [
             {
                 "properties": [
+                    { "$userId": "asc" },
                     { "saltedDomainHash": "asc" }
                 ],
                 "unique": true
