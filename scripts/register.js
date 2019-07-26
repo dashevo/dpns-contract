@@ -12,8 +12,14 @@ const dpnsDocumentsSchema = require('../src/schema/dpns-documents.json');
  * Execute DPNS contract registration
  */
 async function register() {
-  // TODO: get seeds
-  const dapiClient = new DAPIClient();
+  const seeds = process.env.DAPI_CLIENT_SEEDS
+    .split(',')
+    .map(ip => ({ service: `${ip}:${process.env.DAPI_CLIENT_PORT}` }));
+
+  const dapiClient = new DAPIClient({
+    seeds,
+    timeout: 30000,
+  });
 
   const dpp = new DashPlatformProtocol();
 

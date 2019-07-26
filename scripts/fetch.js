@@ -4,8 +4,14 @@ const DAPIClient = require('@dashevo/dapi-client');
  * Fetch DPNS contract
  */
 async function fetch() {
-  // TODO: get seeds
-  const dapiClient = new DAPIClient();
+  const seeds = process.env.DAPI_CLIENT_SEEDS
+    .split(',')
+    .map(ip => ({ service: `${ip}:${process.env.DAPI_CLIENT_PORT}` }));
+
+  const dapiClient = new DAPIClient({
+    seeds,
+    timeout: 30000,
+  });
 
   const contractId = process.argv[2];
 
