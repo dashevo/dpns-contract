@@ -5,6 +5,7 @@
   "scripts": {
     "register": "node scripts/register",
     "fetch": "node scripts/fetch",
+    "lint": "eslint .",
     "test": "mocha 'test/**/*.spec.js'"
   },
   "authors": [
