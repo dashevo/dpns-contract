@@ -15,10 +15,11 @@
             },
             "label": {
                 "type": "string",
-                "pattern": "TODO: add a proper regexp according to RFC"
+                "pattern": "^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9])$"
             },
-            "normalzedLabel": {
-                "type": "string"
+            "normalizedLabel": {
+                "type": "string",
+                "pattern": "^((?!-)[a-z0-9-]{0,62}[a-z0-9])$"
             },
             "parentDomainHash": {
                 "type": "string"
@@ -30,7 +31,9 @@
                 "type": "object",
                 "properties": {
                     "dashIdentity": {
-                        "type": "string"
+                        "type": "string",
+                        "minLength": 64,
+                        "maxLength": 64
                     }
                 },
                 "minProperties": 1,
