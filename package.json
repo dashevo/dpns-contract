@@ -6,7 +6,9 @@
     "register": "node scripts/register",
     "fetch": "node scripts/fetch",
     "lint": "eslint .",
-    "test": "mocha 'test/**/*.spec.js'"
+    "test": "npm run test:unit && npm run test:functional",
+    "test:unit": "mocha 'test/unit/**/*.spec.js'",
+    "test:functional": "mocha 'test/functional/**/*.spec.js'"
   },
   "authors": [
     "Djavid Gabibiyan"
@@ -19,7 +21,8 @@
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.0",
+    "multihashes": "^0.4.15"
   },
   "dependencies": {
     "@dashevo/dapi-client": "^0.6.5",
