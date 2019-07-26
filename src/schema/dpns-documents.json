@@ -1,0 +1,73 @@
+{
+    "domain": {
+        "indices": [
+            {
+                "properties": [
+                    { "$userId": "asc" },
+                    { "hash": "asc" }
+                ],
+                "unique": true
+            }
+        ],
+        "properties": {
+            "hash": {
+                "type": "string"
+            },
+            "label": {
+                "type": "string",
+                "pattern": "^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9])$"
+            },
+            "normalizedLabel": {
+                "type": "string",
+                "pattern": "^((?!-)[a-z0-9-]{0,62}[a-z0-9])$"
+            },
+            "parentDomainHash": {
+                "type": "string"
+            },
+            "preorderSalt": {
+                "type": "string"
+            },
+            "records": {
+                "type": "object",
+                "properties": {
+                    "dashIdentity": {
+                        "type": "string",
+                        "minLength": 64,
+                        "maxLength": 64
+                    }
+                },
+                "minProperties": 1,
+                "additionalProperties": false
+            }
+       },
+       "required": [
+           "hash",
+           "label",
+           "normalizedLabel",
+           "parentDomainHash",
+           "preorderSalt",
+           "records"
+        ],
+        "additionalProperties": false
+    },
+    "preorder": {
+        "indices": [
+            {
+                "properties": [
+                    { "$userId": "asc" },
+                    { "saltedDomainHash": "asc" }
+                ],
+                "unique": true
+            }
+        ],
+        "properties": {
+           "saltedDomainHash": {
+                "type": "string"
+           }
+        },
+        "required": [
+            "saltedDomainHash"
+        ],
+        "additionalProperties": false
+    }
+}
