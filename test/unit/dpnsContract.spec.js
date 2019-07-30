@@ -48,6 +48,23 @@ describe('DPNS Contract', () => {
         expect(error.params.missingProperty).to.equal('saltedDomainHash');
       });
 
+      it('should throw validation error if additional properties are present', () => {
+        preorderData.someOtherProperty = 42;
+
+        const preorder = dpp.document.create('preorder', preorderData);
+
+        const result = dpp.document.validate(preorder);
+
+        expect(result.isValid()).to.be.false();
+        expect(result.errors).to.have.a.lengthOf(1);
+
+        const [error] = result.errors;
+
+        expect(error.name).to.equal('JsonSchemaError');
+        expect(error.keyword).to.equal('additionalProperties');
+        expect(error.params.additionalProperty).to.equal('someOtherProperty');
+      });
+
       it('should successfuly validate preorder document if it is valid', () => {
         const preorder = dpp.document.create('preorder', preorderData);
 
@@ -263,6 +280,42 @@ describe('DPNS Contract', () => {
         expect(error.keyword).to.equal('maxLength');
         expect(error.dataPath).to.equal('.records.dashIdentity');
       });
+
+      it('should throw validation error if additional properties are present', () => {
+        domainData.someOtherProperty = 42;
+
+        const domain = dpp.document.create('domain', domainData);
+
+        const result = dpp.document.validate(domain);
+
+        expect(result.isValid()).to.be.false();
+        expect(result.errors).to.have.a.lengthOf(1);
+
+        const [error] = result.errors;
+
+        expect(error.name).to.equal('JsonSchemaError');
+        expect(error.keyword).to.equal('additionalProperties');
+        expect(error.params.additionalProperty).to.equal('someOtherProperty');
+      });
+
+      it('should throw validation error if additional properties are present in records', () => {
+        domainData.records.someOtherProperty = 42;
+
+        const domain = dpp.document.create('domain', domainData);
+
+        const result = dpp.document.validate(domain);
+
+        expect(result.isValid()).to.be.false();
+        expect(result.errors).to.have.a.lengthOf(1);
+
+        const [error] = result.errors;
+
+        expect(error.name).to.equal('JsonSchemaError');
+        expect(error.keyword).to.equal('additionalProperties');
+        expect(error.dataPath).to.equal('.records');
+        expect(error.params.additionalProperty).to.equal('someOtherProperty');
+      });
+
       it('shoud successfuly validate a domain document is it is valid', () => {
         const domain = dpp.document.create('domain', domainData);
 
