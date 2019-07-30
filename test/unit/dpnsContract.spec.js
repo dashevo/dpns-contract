@@ -263,6 +263,7 @@ describe('DPNS Contract', () => {
         expect(error.keyword).to.equal('maxLength');
         expect(error.dataPath).to.equal('.records.dashIdentity');
       });
+
       it('shoud successfuly validate a domain document is it is valid', () => {
         const domain = dpp.document.create('domain', domainData);
 
