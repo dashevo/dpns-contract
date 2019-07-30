@@ -48,6 +48,23 @@ describe('DPNS Contract', () => {
         expect(error.params.missingProperty).to.equal('saltedDomainHash');
       });
 
+      it('should throw validation error if `saltedDomainHash` is empty', () => {
+        preorderData.saltedDomainHash = '';
+
+        const preorder = dpp.document.create('preorder', preorderData);
+
+        const result = dpp.document.validate(preorder);
+
+        expect(result.isValid()).to.be.false();
+        expect(result.errors).to.have.a.lengthOf(1);
+
+        const [error] = result.errors;
+
+        expect(error.name).to.equal('JsonSchemaError');
+        expect(error.keyword).to.equal('minLength');
+        expect(error.dataPath).to.equal('.saltedDomainHash');
+      });
+
       it('should throw validation error if additional properties are present', () => {
         preorderData.someOtherProperty = 42;
 
@@ -105,6 +122,23 @@ describe('DPNS Contract', () => {
         expect(error.name).to.equal('JsonSchemaError');
         expect(error.keyword).to.equal('required');
         expect(error.params.missingProperty).to.equal('hash');
+      });
+
+      it('should throw validation error if `hash` is empty', () => {
+        domainData.hash = '';
+
+        const domain = dpp.document.create('domain', domainData);
+
+        const result = dpp.document.validate(domain);
+
+        expect(result.isValid()).to.be.false();
+        expect(result.errors).to.have.a.lengthOf(1);
+
+        const [error] = result.errors;
+
+        expect(error.name).to.equal('JsonSchemaError');
+        expect(error.keyword).to.equal('minLength');
+        expect(error.dataPath).to.equal('.hash');
       });
 
       it('should throw validation error if `label` is not specified', () => {
@@ -192,6 +226,23 @@ describe('DPNS Contract', () => {
         expect(error.params.missingProperty).to.equal('parentDomainHash');
       });
 
+      it('should throw validation error if `parentDomainHash` is empty', () => {
+        domainData.parentDomainHash = '';
+
+        const domain = dpp.document.create('domain', domainData);
+
+        const result = dpp.document.validate(domain);
+
+        expect(result.isValid()).to.be.false();
+        expect(result.errors).to.have.a.lengthOf(1);
+
+        const [error] = result.errors;
+
+        expect(error.name).to.equal('JsonSchemaError');
+        expect(error.keyword).to.equal('minLength');
+        expect(error.dataPath).to.equal('.parentDomainHash');
+      });
+
       it('should throw validation error if `preorderSalt` is not specified', () => {
         delete domainData.preorderSalt;
 
@@ -207,6 +258,23 @@ describe('DPNS Contract', () => {
         expect(error.name).to.equal('JsonSchemaError');
         expect(error.keyword).to.equal('required');
         expect(error.params.missingProperty).to.equal('preorderSalt');
+      });
+
+      it('should throw validation error if `preorderSalt` is empty', () => {
+        domainData.preorderSalt = '';
+
+        const domain = dpp.document.create('domain', domainData);
+
+        const result = dpp.document.validate(domain);
+
+        expect(result.isValid()).to.be.false();
+        expect(result.errors).to.have.a.lengthOf(1);
+
+        const [error] = result.errors;
+
+        expect(error.name).to.equal('JsonSchemaError');
+        expect(error.keyword).to.equal('minLength');
+        expect(error.dataPath).to.equal('.preorderSalt');
       });
 
       it('should throw validation error if `records` are not specified', () => {
