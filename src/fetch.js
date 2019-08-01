@@ -5,7 +5,7 @@ const DAPIClient = require('@dashevo/dapi-client');
  *
  * @param {string} contractId
  *
- * @returns {Object}
+ * @returns {Promise<Object>}
  */
 async function fetch(contractId) {
   const seeds = process.env.DAPI_CLIENT_SEEDS
@@ -17,9 +17,7 @@ async function fetch(contractId) {
     timeout: 30000,
   });
 
-  const contract = await dapiClient.fetchContract(contractId);
-
-  return contract;
+  return dapiClient.fetchContract(contractId);
 }
 
 module.exports = fetch;

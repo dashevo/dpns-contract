@@ -11,7 +11,7 @@ const dpnsDocumentsSchema = require('./schema/dpns-documents.json');
 /**
  * Execute DPNS contract registration
  *
- * @returns {{ contractId: string, transitionHash: string }}
+ * @returns {Promise<{ contractId: string, transitionHash: string }>}
  */
 async function register() {
   const seeds = process.env.DAPI_CLIENT_SEEDS
