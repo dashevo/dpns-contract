@@ -99,7 +99,7 @@ describe('DPNS Contract', () => {
           hash: Buffer.alloc(32).toString('hex'),
           label: 'Wallet',
           normalizedLabel: 'wallet',
-          parentDomainHash: Buffer.alloc(32, 1).toString('hex'),
+          normalizedParentDomainName: 'dash',
           preorderSalt: Buffer.alloc(32, 2).toString('hex'),
           records: {
             dashIdentity: Buffer.alloc(32).toString('hex'),
@@ -209,8 +209,8 @@ describe('DPNS Contract', () => {
         expect(error.dataPath).to.equal('.normalizedLabel');
       });
 
-      it('should throw validation error if `parentDomainHash` is not specified', () => {
-        delete domainData.parentDomainHash;
+      it('should throw validation error if `normalizedParentDomainName` is not specified', () => {
+        delete domainData.normalizedParentDomainName;
 
         const domain = dpp.document.create('domain', domainData);
 
@@ -223,11 +223,11 @@ describe('DPNS Contract', () => {
 
         expect(error.name).to.equal('JsonSchemaError');
         expect(error.keyword).to.equal('required');
-        expect(error.params.missingProperty).to.equal('parentDomainHash');
+        expect(error.params.missingProperty).to.equal('normalizedParentDomainName');
       });
 
-      it('should throw validation error if `parentDomainHash` is empty', () => {
-        domainData.parentDomainHash = '';
+      it('should throw validation error if `normalizedParentDomainName` is empty', () => {
+        domainData.normalizedParentDomainName = '';
 
         const domain = dpp.document.create('domain', domainData);
 
@@ -240,7 +240,7 @@ describe('DPNS Contract', () => {
 
         expect(error.name).to.equal('JsonSchemaError');
         expect(error.keyword).to.equal('minLength');
-        expect(error.dataPath).to.equal('.parentDomainHash');
+        expect(error.dataPath).to.equal('.normalizedParentDomainName');
       });
 
       it('should throw validation error if `preorderSalt` is not specified', () => {
