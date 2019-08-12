@@ -4,13 +4,13 @@
             {
                 "properties": [
                     { "$userId": "asc" },
-                    { "hash": "asc" }
+                    { "nameHash": "asc" }
                 ],
                 "unique": true
             }
         ],
         "properties": {
-            "hash": {
+            "nameHash": {
                 "type": "string",
                 "minLength": 1
             },
@@ -44,7 +44,7 @@
             }
        },
        "required": [
-           "hash",
+           "nameHash",
            "label",
            "normalizedLabel",
            "normalizedParentDomainName",

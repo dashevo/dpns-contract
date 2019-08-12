@@ -96,7 +96,7 @@ describe('DPNS Contract', () => {
 
       beforeEach(() => {
         domainData = {
-          hash: Buffer.alloc(32).toString('hex'),
+          nameHash: Buffer.alloc(32).toString('hex'),
           label: 'Wallet',
           normalizedLabel: 'wallet',
           normalizedParentDomainName: 'dash',
@@ -107,8 +107,8 @@ describe('DPNS Contract', () => {
         };
       });
 
-      it('should throw validation error if `hash` is not specified', () => {
-        delete domainData.hash;
+      it('should throw validation error if `nameHash` is not specified', () => {
+        delete domainData.nameHash;
 
         const domain = dpp.document.create('domain', domainData);
 
@@ -121,11 +121,11 @@ describe('DPNS Contract', () => {
 
         expect(error.name).to.equal('JsonSchemaError');
         expect(error.keyword).to.equal('required');
-        expect(error.params.missingProperty).to.equal('hash');
+        expect(error.params.missingProperty).to.equal('nameHash');
       });
 
-      it('should throw validation error if `hash` is empty', () => {
-        domainData.hash = '';
+      it('should throw validation error if `nameHash` is empty', () => {
+        domainData.nameHash = '';
 
         const domain = dpp.document.create('domain', domainData);
 
@@ -138,7 +138,7 @@ describe('DPNS Contract', () => {
 
         expect(error.name).to.equal('JsonSchemaError');
         expect(error.keyword).to.equal('minLength');
-        expect(error.dataPath).to.equal('.hash');
+        expect(error.dataPath).to.equal('.nameHash');
       });
 
       it('should throw validation error if `label` is not specified', () => {
