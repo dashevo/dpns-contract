@@ -22,9 +22,7 @@
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",
     "mocha": "^6.2.0",
-    "multihashes": "^0.4.15"
-  },
-  "dependencies": {
+    "multihashes": "^0.4.15",
     "@dashevo/dapi-client": "^0.6.5",
     "@dashevo/dashcore-lib": "^0.17.9",
     "@dashevo/dpp": "^0.7.2"

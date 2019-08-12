@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const DAPIClient = require('@dashevo/dapi-client');
 
 /**
