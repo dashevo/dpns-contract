@@ -1,6 +1,6 @@
 {
   "name": "dpns-contract",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A contract and helper scripts for DPNS DApp",
   "scripts": {
     "register": "node scripts/register",
