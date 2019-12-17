@@ -9,15 +9,14 @@
       },
       {
         "properties": [
-          { "normalizedLabel": "asc" }
-        ],
-        "unique": true
+          { "normalizedLabel": "asc" },
+          { "normalizedParentDomainName": "asc" }
+        ]
       },
       {
         "properties": [
-          { "normalizedParentDomainName": "asc" }
-        ],
-        "unique": true
+          { "records.dashIdentity": "asc" }
+        ]
       }
     ],
     "properties": {
