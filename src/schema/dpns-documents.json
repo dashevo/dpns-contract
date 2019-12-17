@@ -9,8 +9,8 @@
       },
       {
         "properties": [
-          { "normalizedLabel": "asc" },
-          { "normalizedParentDomainName": "asc" }
+          { "normalizedParentDomainName": "asc" },
+          { "normalizedLabel": "asc" }
         ]
       },
       {
