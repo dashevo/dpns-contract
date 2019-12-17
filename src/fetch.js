@@ -11,7 +11,7 @@ const DAPIClient = require('@dashevo/dapi-client');
 async function fetch(contractId) {
   const seeds = process.env.DAPI_CLIENT_SEEDS
     .split(',')
-    .map(ip => ({ service: `${ip}:${process.env.DAPI_CLIENT_PORT}` }));
+    .map((ip) => ({ service: `${ip}:${process.env.DAPI_CLIENT_PORT}` }));
 
   const dapiClient = new DAPIClient({
     seeds,
