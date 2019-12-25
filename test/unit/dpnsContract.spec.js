@@ -235,23 +235,6 @@ describe('DPNS Contract', () => {
         expect(error.params.missingProperty).to.equal('normalizedParentDomainName');
       });
 
-      it('should throw validation error if `normalizedParentDomainName` is empty', async () => {
-        domainData.normalizedParentDomainName = '';
-
-        const domain = dpp.document.create(contract, identityId, 'domain', domainData);
-
-        const result = await dpp.document.validate(domain);
-
-        expect(result.isValid()).to.be.false();
-        expect(result.errors).to.have.a.lengthOf(1);
-
-        const [error] = result.errors;
-
-        expect(error.name).to.equal('JsonSchemaError');
-        expect(error.keyword).to.equal('minLength');
-        expect(error.dataPath).to.equal('.normalizedParentDomainName');
-      });
-
       it('should throw validation error if `preorderSalt` is not specified', async () => {
         delete domainData.preorderSalt;
 

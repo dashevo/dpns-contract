@@ -34,7 +34,7 @@
       },
       "normalizedParentDomainName": {
         "type": "string",
-        "minLength": 1
+        "minLength": 0
       },
       "preorderSalt": {
         "type": "string",
