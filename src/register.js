@@ -82,7 +82,7 @@ async function register() {
   const dataContractST = dpp.dataContract.createStateTransition(dataContract);
   dataContractST.sign(dpnsUserPublicKey, dpnsUserPrivateKey);
 
-  await dapiClient.updateState(dataContractST);
+  await dapiClient.applyStateTransition(dataContractST);
 
   return dataContract;
 }
