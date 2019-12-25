@@ -18,7 +18,10 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@dashevo/dapi-client": "^v0.8.0-dev.14 ",
+    "@dashevo/dashcore-lib": "^0.18.0",
     "@dashevo/dp-services-ctl": "^v0.10.0-dev.7",
+    "@dashevo/dpp": "^v0.10.0-dev.13",
     "chai": "^4.2.0",
     "dirty-chai": "^2.0.1",
     "eslint": "^6.7.2",
@@ -26,8 +29,7 @@
     "eslint-plugin-import": "^2.19.1",
     "mocha": "^6.2.2",
     "multihashes": "^0.4.15",
-    "@dashevo/dapi-client": "^v0.8.0-dev.14 ",
-    "@dashevo/dashcore-lib": "^0.18.0",
-    "@dashevo/dpp": "^v0.10.0-dev.13"
+    "sinon": "^8.0.1",
+    "sinon-chai": "^3.4.0"
   }
 }
