@@ -109,7 +109,7 @@ describe('DPNS Contract', () => {
           label: 'Wallet',
           normalizedLabel: 'wallet',
           normalizedParentDomainName: 'dash',
-          preorderSalt: Buffer.alloc(32, 2).toString('hex'),
+          preorderSalt: 'yTU2B8bTaq1X17Sm4QdTjfgtPQ6MD2Mx2c',
           records: {
             dashIdentity: generateRandomId(),
           },
