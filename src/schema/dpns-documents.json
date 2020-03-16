@@ -22,23 +22,28 @@
     "properties": {
       "nameHash": {
         "type": "string",
-        "minLength": 1
+        "minLength": 1,
+        "maxLength": 506
       },
       "label": {
         "type": "string",
-        "pattern": "^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9])$"
+        "pattern": "^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9])$",
+        "maxLength": 63
       },
       "normalizedLabel": {
         "type": "string",
-        "pattern": "^((?!-)[a-z0-9-]{0,62}[a-z0-9])$"
+        "pattern": "^((?!-)[a-z0-9-]{0,62}[a-z0-9])$",
+        "maxLength": 63
       },
       "normalizedParentDomainName": {
         "type": "string",
-        "minLength": 0
+        "minLength": 0,
+        "maxLength": 190
       },
       "preorderSalt": {
         "type": "string",
-        "minLength": 1
+        "minLength": 1,
+        "maxLength": 44
       },
       "records": {
         "type": "object",
