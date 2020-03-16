@@ -43,7 +43,7 @@
       "preorderSalt": {
         "type": "string",
         "minLength": 1,
-        "maxLength": 44
+        "maxLength": 256
       },
       "records": {
         "type": "object",
