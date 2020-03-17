@@ -43,7 +43,7 @@
         "type": "string",
         "minLength": 0,
         "maxLength": 190,
-        "description": "Normalized full parent domain name. e.g. 'dash.org'"
+        "description": "A full parent domain name in lower case. e.g. 'dash.org'"
       },
       "preorderSalt": {
         "type": "string",
