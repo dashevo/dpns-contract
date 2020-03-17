@@ -22,28 +22,34 @@
     "properties": {
       "nameHash": {
         "type": "string",
-        "minLength": 1,
-        "maxLength": 506
+        "minLength": 64,
+        "maxLength": 64,
+        "pattern": "^[A-Fa-f0-9]+$",
+        "description": "Double sha-256 hash of the full domain name in a form of a hex string"
       },
       "label": {
         "type": "string",
         "pattern": "^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9])$",
-        "maxLength": 63
+        "maxLength": 63,
+        "description": "Domain label. e.g. 'UseR'"
       },
       "normalizedLabel": {
         "type": "string",
         "pattern": "^((?!-)[a-z0-9-]{0,62}[a-z0-9])$",
-        "maxLength": 63
+        "maxLength": 63,
+        "description": "Domain label in a lower case. e.g. 'user'"
       },
       "normalizedParentDomainName": {
         "type": "string",
         "minLength": 0,
-        "maxLength": 190
+        "maxLength": 190,
+        "description": "Normalized full parent domain name. e.g. 'dash.org'"
       },
       "preorderSalt": {
         "type": "string",
         "minLength": 1,
-        "maxLength": 256
+        "maxLength": 256,
+        "description": "Domain pre-order salt. Currently randomly generated base58 address string."
       },
       "records": {
         "type": "object",
@@ -81,7 +87,10 @@
     "properties": {
       "saltedDomainHash": {
         "type": "string",
-        "minLength": 1
+        "minLength": 64,
+        "maxLength": 64,
+        "pattern": "^[A-Fa-f0-9]+$",
+        "description": "Double sha-256 hash of the full domain name + salt in a form of a hex string"
       }
     },
     "required": [
