@@ -29,9 +29,7 @@
     "mocha": "^6.2.2",
     "multihashes": "^0.4.15",
     "sinon": "^8.0.1",
-    "sinon-chai": "^3.4.0"
-  },
-  "dependencies": {
+    "sinon-chai": "^3.4.0",
     "yargs": "^15.3.1"
   }
 }
