@@ -47,8 +47,8 @@
       },
       "preorderSalt": {
         "type": "string",
-        "minLength": 42,
-        "maxLength": 44,
+        "minLength": 25,
+        "maxLength": 34,
         "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$",
         "description": "Domain pre-order salt. Currently randomly generated base58 address string."
       },
