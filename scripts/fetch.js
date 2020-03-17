@@ -44,5 +44,4 @@ async function fetch() {
 }
 
 fetch()
-  .then(() => process.exit(0))
   .catch((e) => console.error(e));
