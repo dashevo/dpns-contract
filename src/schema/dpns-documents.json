@@ -22,10 +22,10 @@
     "properties": {
       "nameHash": {
         "type": "string",
-        "minLength": 64,
-        "maxLength": 64,
+        "minLength": 68,
+        "maxLength": 68,
         "pattern": "^[A-Fa-f0-9]+$",
-        "description": "Double sha-256 hash of the full domain name in a form of a hex string"
+        "description": "Double sha-256 multihash of the full domain name in a form of a hex string"
       },
       "label": {
         "type": "string",
@@ -58,7 +58,8 @@
             "type": "string",
             "minLength": 42,
             "maxLength": 44,
-            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$"
+            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$",
+            "description": "base58 identity id string"
           }
         },
         "minProperties": 1,
@@ -87,10 +88,10 @@
     "properties": {
       "saltedDomainHash": {
         "type": "string",
-        "minLength": 64,
-        "maxLength": 64,
+        "minLength": 68,
+        "maxLength": 68,
         "pattern": "^[A-Fa-f0-9]+$",
-        "description": "Double sha-256 hash of the full domain name + salt in a form of a hex string"
+        "description": "Double sha-256 multihash of the full domain name + salt in a form of a hex string"
       }
     },
     "required": [
