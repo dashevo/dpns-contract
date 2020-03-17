@@ -1,81 +1,57 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const { client: { http: JaysonClient } } = require('jayson');
-
+/* eslint-disable import/no-extraneous-dependencies, no-console */
 const {
   PrivateKey,
-  PublicKey,
 } = require('@dashevo/dashcore-lib');
 
 const DashPlatformProtocol = require('@dashevo/dpp');
 const DAPIClient = require('@dashevo/dapi-client');
+
+const { argv } = require('yargs')
+  .usage(
+    'Usage: $0 --dapiAddress [string] --serializedIdentity [string] --identityPrivateKey [string]',
+  )
+  .demandOption(['dapiAddress', 'serializedIdentity', 'identityPrivateKey']);
 
 const dpnsDocumentsSchema = require('./schema/dpns-documents.json');
 
 /**
  * Execute DPNS contract registration
  *
- * @returns {Promise<DataContract>}
+ * @returns {Promise<void>}
  */
 async function register() {
-  const seeds = process.env.DAPI_CLIENT_SEEDS
-    .split(',')
-    .map((ip) => ({ service: `${ip}:${process.env.DAPI_CLIENT_PORT}` }));
+  const seeds = [
+    { service: argv.dapiAdress },
+  ];
 
   const dapiClient = new DAPIClient({
     seeds,
     timeout: 30000,
   });
 
-  const tendermintRPCClient = new JaysonClient({
-    host: process.env.TENDERMINT_RPC_HOST,
-    port: process.env.TENDERMINT_RPC_PORT,
-  });
-
   const validationlessDPP = new DashPlatformProtocol({
     dataProvider: {},
   });
 
+  const identity = await validationlessDPP.identity.createFromSerialized(
+    Buffer.from(argv.serializedIdentity, 'hex'),
+    { skipValidation: true },
+  );
+
   const dpp = new DashPlatformProtocol({
     dataProvider: {
-      fetchIdentity: async (id) => {
-        const data = Buffer.from(id).toString('hex');
-
-        const {
-          result: {
-            response: {
-              value: serializedIdentity,
-            },
-          },
-        } = await tendermintRPCClient.request(
-          'abci_query',
-          {
-            path: '/identity',
-            data,
-          },
-        );
-
-        if (!serializedIdentity) {
-          return null;
-        }
-
-        return validationlessDPP.identity.createFromSerialized(
-          Buffer.from(serializedIdentity, 'base64'),
-          { skipValidation: true },
-        );
-      },
+      fetchIdentity: async () => identity,
     },
   });
 
   const dpnsUserPrivateKey = new PrivateKey(
-    process.env.DPNS_USER_PRIVATE_KEY,
+    argv.identityPrivateKey,
   );
 
-  const dpnsUserPublicKey = new PublicKey(
-    process.env.DPNS_USER_PUBLIC_KEY,
-  );
+  const dpnsUserPublicKey = identity.getPublicKeyById(1);
 
   const dataContract = dpp.dataContract.create(
-    process.env.DPNS_IDENTITY_ID,
+    identity.getId(),
     dpnsDocumentsSchema,
   );
 
@@ -84,7 +60,11 @@ async function register() {
 
   await dapiClient.applyStateTransition(dataContractST);
 
-  return dataContract;
+  console.log('Registered data contract with id: ', dataContract.getId());
+  console.log(
+    'Here is the serialized version of it in case you need it: ',
+    dataContract.serialize().toString('hex'),
+  );
 }
 
 module.exports = register;
