@@ -12,7 +12,7 @@ const { argv } = require('yargs')
   )
   .demandOption(['dapiAddress', 'serializedIdentity', 'identityPrivateKey']);
 
-const dpnsDocumentsSchema = require('../src/schema/dpns-documents.json');
+const dpnsContractSchema = require('../schema/dpns-contract.json');
 
 /**
  * Execute DPNS contract registration
@@ -30,7 +30,7 @@ async function register() {
   });
 
   const validationlessDPP = new DashPlatformProtocol({
-    dataProvider: {},
+    stateRepository: {},
   });
 
   const identity = await validationlessDPP.identity.createFromSerialized(
@@ -39,7 +39,7 @@ async function register() {
   );
 
   const dpp = new DashPlatformProtocol({
-    dataProvider: {
+    stateRepository: {
       fetchIdentity: async () => identity,
     },
   });
@@ -52,8 +52,10 @@ async function register() {
 
   const dataContract = dpp.dataContract.create(
     identity.getId(),
-    dpnsDocumentsSchema,
+    dpnsContractSchema.documents,
   );
+
+  dataContract.setDefinitions(dpnsContractSchema.definitions);
 
   const dataContractST = dpp.dataContract.createStateTransition(dataContract);
   dataContractST.sign(dpnsUserPublicKey, dpnsUserPrivateKey);
