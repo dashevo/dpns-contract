@@ -1,7 +1,7 @@
 const DashPlatformProtocol = require('@dashevo/dpp');
 const generateRandomId = require('@dashevo/dpp/lib/test/utils/generateRandomId');
 
-const dpnsContractSchema = require('../../schema/dpns-contract.json');
+const dpnsContractDocumentsSchema = require('../../schema/dpns-contract-documents.json');
 
 describe('DPNS Contract', () => {
   let dpp;
@@ -19,9 +19,7 @@ describe('DPNS Contract', () => {
 
     identityId = generateRandomId();
 
-    contract = dpp.dataContract.create(identityId, dpnsContractSchema.documents);
-
-    contract.setDefinitions(dpnsContractSchema.definitions);
+    contract = dpp.dataContract.create(identityId, dpnsContractDocumentsSchema);
 
     fetchContractStub.resolves(contract);
   });
@@ -115,7 +113,7 @@ describe('DPNS Contract', () => {
           normalizedParentDomainName: 'dash',
           preorderSalt: 'yTU2B8bTaq1X17Sm4QdTjfgtPQ6MD2Mx2c',
           records: {
-            dashIdentity: generateRandomId(),
+            dashUniqueIdentityId: generateRandomId(),
           },
         };
       });
@@ -347,7 +345,9 @@ describe('DPNS Contract', () => {
         });
 
         it('should not have additional properties', async () => {
-          domainData.records.someOtherProperty = 42;
+          domainData.records = {
+            someOtherProperty: 42
+          };
 
           const domain = dpp.document.create(contract, identityId, 'domain', domainData);
 
@@ -367,9 +367,8 @@ describe('DPNS Contract', () => {
         describe('Dash Identity', () => {
           it('should have either `dashUniqueIdentityId` or `dashAliasIdentityId`', async () => {
             domainData.records = {
-              dashDataContractId: identityId,
               dashUniqueIdentityId: identityId,
-              // dashAliasIdentityId: identityId,
+              dashAliasIdentityId: identityId,
             };
 
             const domain = dpp.document.create(contract, identityId, 'domain', domainData);
@@ -382,52 +381,90 @@ describe('DPNS Contract', () => {
             const [error] = result.errors;
 
             expect(error.name).to.equal('JsonSchemaError');
-            expect(error.keyword).to.equal('minLength');
-            expect(error.dataPath).to.equal('.records.dashIdentity');
+            expect(error.keyword).to.equal('maxProperties');
+            expect(error.dataPath).to.equal('.records');
           });
 
-          it('should throw validation error if `dashIdentity`', async () => {
-            domainData.records = {
-              dashIdentity: 'short indentity',
-            };
+          describe('dashUniqueIdentityId', () => {
+            it('should be longer than 42 chars', async () => {
+              domainData.records = {
+                dashUniqueIdentityId: 'short indentity',
+              };
 
-            const domain = await dpp.document.create(contract, identityId, 'domain', domainData);
+              const domain = await dpp.document.create(contract, identityId, 'domain', domainData);
 
-            const result = await dpp.document.validate(domain);
+              const result = await dpp.document.validate(domain);
 
-            expect(result.isValid()).to.be.false();
-            expect(result.errors).to.have.a.lengthOf(1);
+              expect(result.isValid()).to.be.false();
+              expect(result.errors).to.have.a.lengthOf(1);
 
-            const [error] = result.errors;
+              const [error] = result.errors;
 
-            expect(error.name).to.equal('JsonSchemaError');
-            expect(error.keyword).to.equal('minLength');
-            expect(error.dataPath).to.equal('.records.dashIdentity');
+              expect(error.name).to.equal('JsonSchemaError');
+              expect(error.keyword).to.equal('minLength');
+              expect(error.dataPath).to.equal('.records.dashUniqueIdentityId');
+            });
+
+            it('should be less than 44 chars', async () => {
+              domainData.records = {
+                dashUniqueIdentityId: Buffer.alloc(64).toString('hex'),
+              };
+
+              const domain = await dpp.document.create(contract, identityId, 'domain', domainData);
+
+              const result = await dpp.document.validate(domain);
+
+              expect(result.isValid()).to.be.false();
+              expect(result.errors).to.have.a.lengthOf(1);
+
+              const [error] = result.errors;
+
+              expect(error.name).to.equal('JsonSchemaError');
+              expect(error.keyword).to.equal('maxLength');
+              expect(error.dataPath).to.equal('.records.dashUniqueIdentityId');
+            });
           });
 
-          it('should be not longer than 44 chars', async () => {
-            domainData.records = {
-              dashIdentity: Buffer.alloc(64).toString('hex'),
-            };
+          describe('dashAliasIdentityId', () => {
+            it('should be longer than 42 chars', async () => {
+              domainData.records = {
+                dashAliasIdentityId: 'short indentity',
+              };
 
-            const domain = await dpp.document.create(contract, identityId, 'domain', domainData);
+              const domain = await dpp.document.create(contract, identityId, 'domain', domainData);
 
-            const result = await dpp.document.validate(domain);
+              const result = await dpp.document.validate(domain);
 
-            expect(result.isValid()).to.be.false();
-            expect(result.errors).to.have.a.lengthOf(1);
+              expect(result.isValid()).to.be.false();
+              expect(result.errors).to.have.a.lengthOf(1);
 
-            const [error] = result.errors;
+              const [error] = result.errors;
 
-            expect(error.name).to.equal('JsonSchemaError');
-            expect(error.keyword).to.equal('maxLength');
-            expect(error.dataPath).to.equal('.records.dashIdentity');
+              expect(error.name).to.equal('JsonSchemaError');
+              expect(error.keyword).to.equal('minLength');
+              expect(error.dataPath).to.equal('.records.dashAliasIdentityId');
+            });
+
+            it('should be less than 44 chars', async () => {
+              domainData.records = {
+                dashAliasIdentityId: Buffer.alloc(64).toString('hex'),
+              };
+
+              const domain = await dpp.document.create(contract, identityId, 'domain', domainData);
+
+              const result = await dpp.document.validate(domain);
+
+              expect(result.isValid()).to.be.false();
+              expect(result.errors).to.have.a.lengthOf(1);
+
+              const [error] = result.errors;
+
+              expect(error.name).to.equal('JsonSchemaError');
+              expect(error.keyword).to.equal('maxLength');
+              expect(error.dataPath).to.equal('.records.dashAliasIdentityId');
+            });
           });
         });
-
-        describe('Dash Data Contract', () => {
-
-        })
       })
     });
   });

@@ -12,7 +12,7 @@ const { argv } = require('yargs')
   )
   .demandOption(['dapiAddress', 'serializedIdentity', 'identityPrivateKey']);
 
-const dpnsContractSchema = require('../schema/dpns-contract.json');
+const dpnsContractDocumentsSchema = require('../schema/dpns-contract-documents.json');
 
 /**
  * Execute DPNS contract registration
@@ -52,10 +52,8 @@ async function register() {
 
   const dataContract = dpp.dataContract.create(
     identity.getId(),
-    dpnsContractSchema.documents,
+    dpnsContractDocumentsSchema,
   );
-
-  dataContract.setDefinitions(dpnsContractSchema.definitions);
 
   const dataContractST = dpp.dataContract.createStateTransition(dataContract);
   dataContractST.sign(dpnsUserPublicKey, dpnsUserPrivateKey);
