@@ -113,8 +113,8 @@
       "saltedDomainHash": {
         "type": "string",
         "contentMediaType": "application/octet-stream",
-        "minLength": 34,
-        "maxLength": 34,
+        "minLength": 32,
+        "maxLength": 32,
         "description": "Double sha-256 of concatenated salt, `normalizedLabel` and `normalizedParentDomainName`. Salt should be 32 random bytes"
       }
     },
