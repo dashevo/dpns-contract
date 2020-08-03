@@ -44,7 +44,7 @@
       },
       "preorderSalt": {
         "type": "string",
-        "contentMediaType": "application/octet-stream",
+        "contentEncoding": "binary",
         "minLength": 32,
         "maxLength": 32,
         "description": "Domain pre-order salt. 32 random bytes"
