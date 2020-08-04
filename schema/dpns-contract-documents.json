@@ -112,7 +112,7 @@
     "properties": {
       "saltedDomainHash": {
         "type": "string",
-        "contentMediaType": "application/octet-stream",
+        "contentEncoding": "binary",
         "minLength": 32,
         "maxLength": 32,
         "description": "Double sha-256 of concatenated salt, `normalizedLabel` and `normalizedParentDomainName`. Salt should be 32 random bytes"
