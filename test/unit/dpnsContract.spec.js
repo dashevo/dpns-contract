@@ -309,6 +309,26 @@ describe('DPNS Contract', () => {
           expect(error.keyword).to.equal('maxLength');
           expect(error.dataPath).to.equal('.normalizedParentDomainName');
         });
+
+        it.skip('should follow pattern', async () => {
+          domainData.normalizedParentDomainName = '';
+
+          let domain = dpp.document.create(contract, identityId, 'domain', domainData);
+
+          let result = await dpp.document.validate(domain);
+
+          expect(result.isValid()).to.be.true();
+
+          domainData.normalizedParentDomainName = 'notNormalized';
+          domain = dpp.document.create(contract, identityId, 'domain', domainData);
+          result = await dpp.document.validate(domain);
+
+          let [error] = result.errors;
+
+          expect(error.name).to.equal('JsonSchemaError');
+          expect(error.keyword).to.equal('pattern');
+          expect(error.dataPath).to.equal('.normalizedParentDomainName');
+        });
       });
 
       describe('preorderSalt', () => {
