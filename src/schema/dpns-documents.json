@@ -3,77 +3,98 @@
     "indices": [
       {
         "properties": [
-          { "nameHash": "asc" }
+          {
+            "normalizedParentDomainName": "asc"
+          },
+          {
+            "normalizedLabel": "asc"
+          }
         ],
         "unique": true
       },
       {
         "properties": [
-          { "normalizedParentDomainName": "asc" },
-          { "normalizedLabel": "asc" }
-        ]
-      },
-      {
-        "properties": [
-          { "records.dashIdentity": "asc" }
-        ]
+          {
+            "records.dashUniqueIdentityId": "asc"
+          }
+        ],
+        "unique": true
       }
     ],
     "properties": {
-      "nameHash": {
-        "type": "string",
-        "minLength": 68,
-        "maxLength": 68,
-        "pattern": "^[A-Fa-f0-9]+$",
-        "description": "Double sha-256 multihash of the full domain name in a form of a hex string"
-      },
       "label": {
         "type": "string",
         "pattern": "^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9])$",
+        "minLength": 3,
         "maxLength": 63,
-        "description": "Domain label. e.g. 'UseR'"
+        "description": "Domain label. e.g. 'Bob'."
       },
       "normalizedLabel": {
         "type": "string",
         "pattern": "^((?!-)[a-z0-9-]{0,62}[a-z0-9])$",
         "maxLength": 63,
-        "description": "Domain label in a lower case. e.g. 'user'"
+        "description": "Domain label in a lower case for case insensitive uniqueness validation. e.g. 'bob'",
+        "$comment": "This property will be deprecated due to case insensitive indices"
       },
       "normalizedParentDomainName": {
         "type": "string",
         "minLength": 0,
         "maxLength": 190,
-        "description": "A full parent domain name in lower case. e.g. 'dash.org'"
+        "description": "A full parent domain name in lower case for case insensitive uniqueness validation. e.g. 'dash'"
       },
       "preorderSalt": {
         "type": "string",
-        "minLength": 25,
-        "maxLength": 34,
-        "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$",
-        "description": "Domain pre-order salt. Currently randomly generated base58 address string."
+        "contentEncoding": "binary",
+        "minLength": 32,
+        "maxLength": 32,
+        "description": "Domain pre-order salt. 32 random bytes"
       },
       "records": {
         "type": "object",
         "properties": {
-          "dashIdentity": {
+          "dashUniqueIdentityId": {
             "type": "string",
             "minLength": 42,
             "maxLength": 44,
             "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$",
-            "description": "base58 identity id string"
+            "description": "Identity ID string should be used to create a primary name for Identity",
+            "$comment": "base58 string"
+          },
+          "dashAliasIdentityId": {
+            "type": "string",
+            "minLength": 42,
+            "maxLength": 44,
+            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$",
+            "description": "Identity ID string should be used to create multiple alias names for Identity",
+            "$comment": "base58 string"
           }
         },
+        "$comment": "Constraint with max and min properties ensure that only one identity record is used either `dashUniqueIdentityId` or `dashAliasIdentityId`",
         "minProperties": 1,
+        "maxProperties": 1,
         "additionalProperties": false
+      },
+      "subdomainRules": {
+        "type": "object",
+        "properties": {
+          "allowSubdomains": {
+            "type": "boolean",
+            "const": false,
+            "description": "This option defines who can create subdomains. Only domain owner is allowed at the moment"
+          }
+        },
+        "description": "Subdomain rules allows to define rules for subdomains",
+        "additionalProperties": false,
+        "required": ["allowSubdomains"]
       }
     },
     "required": [
-      "nameHash",
       "label",
       "normalizedLabel",
       "normalizedParentDomainName",
       "preorderSalt",
-      "records"
+      "records",
+      "subdomainRules"
     ],
     "additionalProperties": false
   },
@@ -81,7 +102,9 @@
     "indices": [
       {
         "properties": [
-          { "saltedDomainHash": "asc" }
+          {
+            "saltedDomainHash": "asc"
+          }
         ],
         "unique": true
       }
@@ -89,10 +112,10 @@
     "properties": {
       "saltedDomainHash": {
         "type": "string",
-        "minLength": 68,
-        "maxLength": 68,
-        "pattern": "^[A-Fa-f0-9]+$",
-        "description": "Double sha-256 multihash of the full domain name + salt in a form of a hex string"
+        "contentEncoding": "binary",
+        "minLength": 32,
+        "maxLength": 32,
+        "description": "Double sha-256 of concatenated salt, `normalizedLabel` and `normalizedParentDomainName`. Salt should be 32 random bytes"
       }
     },
     "required": [
