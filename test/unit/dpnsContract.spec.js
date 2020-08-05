@@ -75,7 +75,7 @@ describe('DPNS Contract', () => {
           expect(error.dataPath).to.equal('.saltedDomainHash');
         });
 
-        it.skip('should have 32 chars length', async () => {
+        it('should have 32 chars length', async () => {
           preorderData.saltedDomainHash = '0'.repeat(31);
           let preorder = dpp.document.create(contract, identityId, 'preorder', preorderData);
 
@@ -103,7 +103,7 @@ describe('DPNS Contract', () => {
           [error] = result.errors;
 
           expect(error.name).to.equal('JsonSchemaError');
-          expect(error.keyword).to.equal('minLength');
+          expect(error.keyword).to.equal('maxLength');
           expect(error.dataPath).to.equal('.saltedDomainHash');
         });
       });
@@ -310,7 +310,7 @@ describe('DPNS Contract', () => {
           expect(error.dataPath).to.equal('.normalizedParentDomainName');
         });
 
-        it.skip('should follow pattern', async () => {
+        it('should follow pattern', async () => {
           domainData.normalizedParentDomainName = '';
 
           let domain = dpp.document.create(contract, identityId, 'domain', domainData);
@@ -366,7 +366,7 @@ describe('DPNS Contract', () => {
           expect(error.dataPath).to.equal('.preorderSalt');
         });
 
-        it.skip('should have 32 chars length', async () => {
+        it('should have 32 chars length', async () => {
           domainData.preorderSalt = 'a'.repeat(31);
 
           let domain = dpp.document.create(contract, identityId, 'domain', domainData);
