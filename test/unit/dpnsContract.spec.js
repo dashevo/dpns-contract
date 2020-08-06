@@ -323,7 +323,7 @@ describe('DPNS Contract', () => {
           domain = dpp.document.create(contract, identityId, 'domain', domainData);
           result = await dpp.document.validate(domain);
 
-          let [error] = result.errors;
+          const [error] = result.errors;
 
           expect(error.name).to.equal('JsonSchemaError');
           expect(error.keyword).to.equal('pattern');
