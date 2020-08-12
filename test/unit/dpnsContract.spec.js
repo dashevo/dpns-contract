@@ -77,7 +77,7 @@ describe('DPNS Contract', () => {
           expect(error.dataPath).to.equal('.saltedDomainHash');
         });
 
-        it('should have 44 chars length', async () => {
+        it('should have 43 to 44 chars length', async () => {
           preorderData.saltedDomainHash = crypto.randomBytes(10);
           let preorder = dpp.document.create(contract, identityId, 'preorder', preorderData);
 
@@ -368,7 +368,7 @@ describe('DPNS Contract', () => {
           expect(error.dataPath).to.equal('.preorderSalt');
         });
 
-        it('should have 44 chars length', async () => {
+        it('should have 43 to 44 chars length', async () => {
           domainData.preorderSalt = crypto.randomBytes(10);
 
           let domain = dpp.document.create(contract, identityId, 'domain', domainData);
