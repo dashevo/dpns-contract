@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 const DashPlatformProtocol = require('@dashevo/dpp');
 const generateRandomId = require('@dashevo/dpp/lib/test/utils/generateRandomId');
 
@@ -36,7 +38,7 @@ describe('DPNS Contract', () => {
 
       beforeEach(() => {
         preorderData = {
-          saltedDomainHash: '0'.repeat(32),
+          saltedDomainHash: crypto.randomBytes(32),
         };
       });
 
@@ -142,7 +144,7 @@ describe('DPNS Contract', () => {
           label: 'Wallet',
           normalizedLabel: 'wallet',
           normalizedParentDomainName: 'dash',
-          preorderSalt: 'yTU2B8bTaq1X17Sm4QdTjfgtPQ6MD2Mx',
+          preorderSalt: crypto.randomBytes(32),
           records: {
             dashUniqueIdentityId: generateRandomId(),
           },

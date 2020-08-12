@@ -46,9 +46,9 @@
       },
       "preorderSalt": {
         "type": "string",
-        "contentEncoding": "binary",
-        "minLength": 32,
-        "maxLength": 32,
+        "contentEncoding": "base64",
+        "minLength": 44,
+        "maxLength": 44,
         "description": "Domain pre-order salt. 32 random bytes"
       },
       "records": {
@@ -115,9 +115,9 @@
     "properties": {
       "saltedDomainHash": {
         "type": "string",
-        "contentEncoding": "binary",
-        "minLength": 32,
-        "maxLength": 32,
+        "contentEncoding": "base64",
+        "minLength": 44,
+        "maxLength": 44,
         "description": "Double sha-256 of concatenated salt, `normalizedLabel` and `normalizedParentDomainName`. Salt should be 32 random bytes"
       }
     },
