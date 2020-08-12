@@ -78,7 +78,7 @@ describe('DPNS Contract', () => {
         });
 
         it('should have 44 chars length', async () => {
-          preorderData.saltedDomainHash = Buffer.alloc(10);
+          preorderData.saltedDomainHash = crypto.randomBytes(10);
           let preorder = dpp.document.create(contract, identityId, 'preorder', preorderData);
 
           let result = await dpp.document.validate(preorder);
@@ -93,7 +93,7 @@ describe('DPNS Contract', () => {
           expect(error.keyword).to.equal('minLength');
           expect(error.dataPath).to.equal('.saltedDomainHash');
 
-          preorderData.saltedDomainHash = Buffer.alloc(40);
+          preorderData.saltedDomainHash = crypto.randomBytes(40);
           identityId = generateRandomId();
           preorder = dpp.document.create(contract, identityId, 'preorder', preorderData);
 
@@ -369,7 +369,7 @@ describe('DPNS Contract', () => {
         });
 
         it('should have 44 chars length', async () => {
-          domainData.preorderSalt = Buffer.alloc(10);
+          domainData.preorderSalt = crypto.randomBytes(10);
 
           let domain = dpp.document.create(contract, identityId, 'domain', domainData);
 
@@ -384,7 +384,7 @@ describe('DPNS Contract', () => {
           expect(error.keyword).to.equal('minLength');
           expect(error.dataPath).to.equal('.preorderSalt');
 
-          domainData.preorderSalt = Buffer.alloc(40);
+          domainData.preorderSalt = crypto.randomBytes(40);
 
           domain = dpp.document.create(contract, identityId, 'domain', domainData);
 
@@ -524,7 +524,7 @@ describe('DPNS Contract', () => {
 
             it('should be less than 44 chars', async () => {
               domainData.records = {
-                dashUniqueIdentityId: Buffer.alloc(64).toString('hex'),
+                dashUniqueIdentityId: crypto.randomBytes(64).toString('hex'),
               };
 
               const domain = await dpp.document.create(contract, identityId, 'domain', domainData);
@@ -585,7 +585,7 @@ describe('DPNS Contract', () => {
 
             it('should be less than 44 chars', async () => {
               domainData.records = {
-                dashAliasIdentityId: Buffer.alloc(64).toString('hex'),
+                dashAliasIdentityId: crypto.randomBytes(64).toString('hex'),
               };
 
               const domain = await dpp.document.create(contract, identityId, 'domain', domainData);
