@@ -77,8 +77,8 @@ describe('DPNS Contract', () => {
           expect(error.dataPath).to.equal('.saltedDomainHash');
         });
 
-        it('should have 32 chars length', async () => {
-          preorderData.saltedDomainHash = '0'.repeat(31);
+        it('should have 44 chars length', async () => {
+          preorderData.saltedDomainHash = Buffer.alloc(10);
           let preorder = dpp.document.create(contract, identityId, 'preorder', preorderData);
 
           let result = await dpp.document.validate(preorder);
@@ -93,7 +93,7 @@ describe('DPNS Contract', () => {
           expect(error.keyword).to.equal('minLength');
           expect(error.dataPath).to.equal('.saltedDomainHash');
 
-          preorderData.saltedDomainHash = '0'.repeat(33);
+          preorderData.saltedDomainHash = Buffer.alloc(40);
           identityId = generateRandomId();
           preorder = dpp.document.create(contract, identityId, 'preorder', preorderData);
 
@@ -368,8 +368,8 @@ describe('DPNS Contract', () => {
           expect(error.dataPath).to.equal('.preorderSalt');
         });
 
-        it('should have 32 chars length', async () => {
-          domainData.preorderSalt = 'a'.repeat(31);
+        it('should have 44 chars length', async () => {
+          domainData.preorderSalt = Buffer.alloc(10);
 
           let domain = dpp.document.create(contract, identityId, 'domain', domainData);
 
@@ -384,7 +384,7 @@ describe('DPNS Contract', () => {
           expect(error.keyword).to.equal('minLength');
           expect(error.dataPath).to.equal('.preorderSalt');
 
-          domainData.preorderSalt = 'a'.repeat(33);
+          domainData.preorderSalt = Buffer.alloc(40);
 
           domain = dpp.document.create(contract, identityId, 'domain', domainData);
 
