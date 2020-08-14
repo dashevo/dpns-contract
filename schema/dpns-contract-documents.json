@@ -48,7 +48,8 @@
         "type": "string",
         "contentEncoding": "base64",
         "minLength": 43,
-        "maxLength": 44,
+        "maxLength": 43,
+        "pattern": "^([A-Za-z0-9+/])*$",
         "description": "Domain pre-order salt. 32 random bytes"
       },
       "records": {
@@ -117,7 +118,8 @@
         "type": "string",
         "contentEncoding": "base64",
         "minLength": 43,
-        "maxLength": 44,
+        "maxLength": 43,
+        "pattern": "^([A-Za-z0-9+/])*$",
         "description": "Double sha-256 of concatenated salt, `normalizedLabel` and `normalizedParentDomainName`. Salt should be 32 random bytes"
       }
     },
