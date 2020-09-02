@@ -6,7 +6,7 @@
 [![license](https://img.shields.io/github/license/dashevo/dpns-contract.svg)](LICENSE)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen)](https://github.com/RichardLitt/standard-readme)
 
-> JSON Contracts for Dash Platform Name Service
+JSON Contracts for Dash Platform Name Service
 
 ## Table of Contents
 
@@ -55,13 +55,10 @@ To run tests, simply run
 npm test
 ```
 
-
 ## Contributing
 
-Feel free to dive in! [Open an issue](https://github.com/dashevo/dpns-contract/issues/new) or submit PRs.
+Feel free to dive in! [Open an issue](https://github.com/dashevo/dpns-contract/issues/new/choose) or submit PRs.
 
 ## License
 
 [MIT](LICENSE) &copy; Dash Core Group, Inc.
-
-
