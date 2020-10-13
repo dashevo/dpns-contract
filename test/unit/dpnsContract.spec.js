@@ -1,7 +1,8 @@
 const crypto = require('crypto');
 
 const DashPlatformProtocol = require('@dashevo/dpp');
-const generateRandomId = require('@dashevo/dpp/lib/test/utils/generateRandomId');
+
+const generateRandomIdentifier = require('@dashevo/dpp/lib/test/utils/generateRandomIdentifier');
 
 const dpnsContractDocumentsSchema = require('../../schema/dpns-contract-documents.json');
 
@@ -19,7 +20,7 @@ describe('DPNS Contract', () => {
       },
     });
 
-    identityId = generateRandomId();
+    identityId = generateRandomIdentifier();
 
     contract = dpp.dataContract.create(identityId, dpnsContractDocumentsSchema);
 
@@ -94,7 +95,7 @@ describe('DPNS Contract', () => {
           expect(error.dataPath).to.equal('.saltedDomainHash');
 
           preorderData.saltedDomainHash = crypto.randomBytes(40);
-          identityId = generateRandomId();
+          identityId = generateRandomIdentifier();
           preorder = dpp.document.create(contract, identityId, 'preorder', preorderData);
 
           result = await dpp.document.validate(preorder);
@@ -146,7 +147,7 @@ describe('DPNS Contract', () => {
           normalizedParentDomainName: 'dash',
           preorderSalt: crypto.randomBytes(32),
           records: {
-            dashUniqueIdentityId: generateRandomId(),
+            dashUniqueIdentityId: generateRandomIdentifier(),
           },
           subdomainRules: {
             allowSubdomains: false,
@@ -542,7 +543,7 @@ describe('DPNS Contract', () => {
             });
 
             it('should follow pattern', async () => {
-              const id = generateRandomId().substring(1);
+              const id = generateRandomIdentifier().substring(1);
 
               domainData.records = {
                 dashUniqueIdentityId: `${id}*`,
@@ -603,7 +604,7 @@ describe('DPNS Contract', () => {
             });
 
             it('should follow pattern', async () => {
-              const id = generateRandomId().substring(1);
+              const id = generateRandomIdentifier().substring(1);
 
               domainData.records = {
                 dashAliasIdentityId: `${id}*`,
