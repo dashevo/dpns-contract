@@ -124,7 +124,7 @@ describe('DPNS Contract', () => {
       it('should not have additional properties', async () => {
         rawPreorderDocument.someOtherProperty = 42;
 
-        try{
+        try {
           dpp.document.create(dataContract, identityId, 'preorder', rawPreorderDocument);
 
           expect.fail('should throw error');
