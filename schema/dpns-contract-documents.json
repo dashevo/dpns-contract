@@ -19,6 +19,14 @@
           }
         ],
         "unique": true
+      },
+      {
+        "properties": [
+          {
+            "records.dashAliasIdentityId": "asc"
+          }
+        ],
+        "unique": false
       }
     ],
     "properties": {
