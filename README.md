@@ -1,7 +1,7 @@
 # DPNS Contract
 
 [![NPM Version](https://img.shields.io/npm/v/@dashevo/dpns-contract)](https://www.npmjs.com/package/@dashevo/dpns-contract)
-[![Build Status](https://travis-ci.com/dashevo/dpns-contract.svg?branch=master)](https://travis-ci.com/dashevo/dpns-contract)
+[![Build Status](https://github.com/dashevo/dpns-contract/actions/workflows/test_and_release.yml/badge.svg)](https://github.com/dashevo/dpns-contract/actions/workflows/test_and_release.yml)
 [![Release Date](https://img.shields.io/github/release-date/dashevo/dpns-contract)](https://github.com/dashevo/dpns-contract/releases/latest)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen)](https://github.com/RichardLitt/standard-readme)
 
